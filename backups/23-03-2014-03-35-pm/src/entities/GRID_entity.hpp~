@@ -1,0 +1,18 @@
+/**************************
+GRID entity class.
+*****************************/
+
+#ifndef GRID_HEADER_HPP
+#define GRID_HEADER_HPP
+
+#include "all_header.h"
+
+class GRID: private base_entity
+{
+    public:
+        void render(); //renders current object
+
+}
+
+#endif
+

@@ -1,0 +1,191 @@
+/*****************************
+entity class. contains the master entity class. This class can be uysed as a basic entity, but it is advised to just use it as a class to inherit from.
+******************************/
+
+//class base_entity
+//{
+//    public:
+//        base_entity (int, int, int, std::string); //constructer, takes two ints as positions, an int as the colour (TODO work out how to hold three values in one int.) and a string as the type.   
+//        base_entity (int, int, std::string); //constructer that doesnt take colours. (for testing)
+//        void do_logic(int); //function to run this entities logic. takes an int as the current tick in order to calculate how much time it needs to do something.
+//        void render(); //renders current object.
+//        void handle_collision(int, int); //collision handler, takes ints to show what direction something hit it at.
+//        void handle_keys(char); //key handling function. Every object has one, this way we can make multiple entities act as one player.
+//        private:
+//        GLint colour4i[4]; //array of four bytes for storing object's colours;Red,Green, Blue and Alpha.
+//        GLint colour3i[3]; //array of three bytes for storing object's colours;Red,Green and blue.
+//        int location[1][1]; //array of two ints containing the objects current location.
+//};
+
+#include "all_header.h"
+
+void base_entity::calculate_colours(int col) //unpacks the colours from their compressed form.and puts them into colour 4i and 3i
+{
+
+        colour4i[4] = (col & 0xFF);
+        base_entity::colour4i[3] = (col >> 8 )& 0xFF;
+        base_entity::colour4i[2] = (col >> 16 ) & 0xFF;
+        base_entity::colour4i[1] = (col >> 24);
+        
+        
+        base_entity::colour3i[3] = (col >> 8 )& 0xFF;
+        base_entity::colour3i[2] = (col >> 16 ) & 0xFF;
+        base_entity::colour3i[1] = (col >> 24);
+        
+        return;
+}
+
+bool base_entity::return_solid()
+    {
+        return base_entity::solid;
+    }
+
+void base_entity::do_logic(int tick) //does all the logic for the entity.
+    {
+    //nothing to do here!
+    }
+    
+void handle_collision(int hitX, int hitY) //handles collisions.
+{
+ //nothing to do here!
+}
+
+void base_entity::render() //by default this renders a red cube.
+    {
+        GLfloat pointTL[2] = {base_entity::location[1],base_entity::location[2]};
+        GLfloat pointTR[2] = {(base_entity::location[1]+ 0.1f), base_entity::location[2]};
+        GLfloat pointBR[2] = {(base_entity::location[1] + 0.1f), (base_entity::location[2] - 0.1f)};
+        GLfloat pointBL[2] = {base_entity::location[1], (base_entity::location[2] - 0.1f)};
+        
+        glClear ( GL_COLOR_BUFFER_BIT); //clear the screen.
+        
+        glLoadIdentity(); //load ID
+        //glTranslatef(180, 15,0); //translate to topleft 
+//        glBegin(GL_QUADS); //draw quad.
+//            glColor3f(1.f,0.f, 0.f);
+//            glVertex2f(-0.0f,0.1f);
+//            glVertex2f( 0.1f,0.1f);
+//            glVertex2f(0.1f,0.0f);
+//            glVertex2f(0.0f,0.0f);
+//        glEnd(); //end
+        glBegin(GL_LINES);
+            glColor3f(1.f,0.f,0.f);
+            glVertex2f(0.f, 1.0f);
+            glVertex2f (0.0f, -1.0f);
+            glVertex2f (-1.0f, 0.0f);
+            glVertex2f (1.0f, 0.0f);
+            
+            glVertex2f (0.5f, 1.0f);
+            glVertex2f (0.5f, -1.0f);
+            glVertex2f (-0.5f, 1.0f);
+            glVertex2f (-0.5f, -1.0f);
+            
+            glVertex2f (-1.0f, -0.5f);
+            glVertex2f (1.0f, -0.5f);
+            glVertex2f (1.0f, 0.5f);
+            glVertex2f (-1.0f, 0.5f);
+            
+            glVertex2f (-1.0f, -0.1f);
+            glVertex2f (1.0f, -0.1f);
+            glVertex2f (1.0f, 0.1f);
+            glVertex2f (-1.0f, 0.1f);
+            
+            glVertex2f (-1.0f, -0.2f);
+            glVertex2f (1.0f, -0.2f);
+            glVertex2f (1.0f, 0.2f);
+            glVertex2f (-1.0f, 0.2f);
+            
+            glVertex2f (-1.0f, -0.3f);
+            glVertex2f (1.0f, -0.3f);
+            glVertex2f (1.0f, 0.3f);
+            glVertex2f (-1.0f, 0.3f);
+            
+            glVertex2f (-1.0f, -0.4f);
+            glVertex2f (1.0f, -0.4f);
+            glVertex2f (1.0f, 0.4f);
+            glVertex2f (-1.0f, 0.4f);
+            
+            glVertex2f (-1.0f, -0.6f);
+            glVertex2f (1.0f, -0.6f);
+            glVertex2f (1.0f, 0.6f);
+            glVertex2f (-1.0f, 0.6f);
+            
+            glVertex2f (-1.0f, -0.7f);
+            glVertex2f (1.0f, -0.7f);
+            glVertex2f (1.0f, 0.7f);
+            glVertex2f (-1.0f, 0.7f);
+            
+            glVertex2f (-1.0f, -0.8f);
+            glVertex2f (1.0f, -0.8f);
+            glVertex2f (1.0f, 0.8f);
+            glVertex2f (-1.0f, 0.8f);
+            
+            glVertex2f (-1.0f, -0.9f);
+            glVertex2f (1.0f, -0.9f);
+            glVertex2f (1.0f, 0.9f);
+            glVertex2f (-1.0f, 0.9f);
+            
+            glVertex2f(0.1f, 1.0f);
+            glVertex2f (0.1f, -1.0f);
+
+            glVertex2f(0.2f, 1.0f);
+            glVertex2f (0.2f, -1.0f);
+            glVertex2f(0.3f, 1.0f);
+            glVertex2f (0.3f, -1.0f);
+
+            glVertex2f(0.4f, 1.0f);
+            glVertex2f (0.4f, -1.0f);
+            
+            glVertex2f(0.6f, 1.0f);
+            glVertex2f (0.6f, -1.0f);
+            
+            glVertex2f(0.7f, 1.0f);
+            glVertex2f (0.7f, -1.0f);
+            
+            glVertex2f(0.8f, 1.0f);
+            glVertex2f (0.8f, -1.0f);
+            
+            glVertex2f(0.9f, 1.0f);
+            glVertex2f (0.9f, -1.0f);
+            
+            glVertex2f(-0.1f, 1.0f);
+            glVertex2f (-0.1f, -1.0f);
+
+            glVertex2f(-0.2f, 1.0f);
+            glVertex2f (-0.2f, -1.0f);
+            glVertex2f(-0.3f, 1.0f);
+            glVertex2f (-0.3f, -1.0f);
+
+            glVertex2f(-0.4f, 1.0f);
+            glVertex2f (-0.4f, -1.0f);
+            
+            glVertex2f(-0.6f, 1.0f);
+            glVertex2f (-0.6f, -1.0f);
+            
+            glVertex2f(-0.7f, 1.0f);
+            glVertex2f (-0.7f, -1.0f);
+            
+            glVertex2f(-0.8f, 1.0f);
+            glVertex2f (-0.8f, -1.0f);
+            
+            glVertex2f(-0.9f, 1.0f);
+            glVertex2f (-0.9f, -1.0f);
+        glEnd();
+        return;
+    }
+
+base_entity::base_entity (GLfloat x, GLfloat y)
+{
+    std::cout << "new base entity created!\n\n";
+
+    std::cout << "X = " << x << "\nY = " << y << "\n\n";
+    base_entity::locationX = x; //add the x and y to this entity.
+    base_entity::locationY = y; 
+    std::cout << "location: " << base_entity::locationX << "  " << base_entity::locationY << "\n\n";
+    //base_entity::solid = true; //default as solid.
+     //we dont have colours for this one.
+    return;
+}
+   
+   
+

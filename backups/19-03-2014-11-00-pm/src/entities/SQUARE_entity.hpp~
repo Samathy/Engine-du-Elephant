@@ -1,0 +1,20 @@
+/******************************
+SQUARE entity class.
+*********************************/
+
+#ifndef SQUARE_HEADER_HPP
+#define SQUARE_HEADER_HPP
+
+#include "all_header.h"
+
+
+class SQUARE :private base_entity
+{
+    public:
+        void render(); //renders current object.
+        void handle_collision(int, int); //collision handler, takes ints to show what direction something hit it at.
+        void handle_keys(int); //key handling function. Every object has one, this way we can make multiple entities act as one player.
+
+};
+
+#endif

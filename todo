@@ -1,0 +1,1 @@
+Need to sort out movement because currently it depends on where the player entity is initialised as to if they can move or not because of plus and minus numbers not calculating as i thought thet sgoyld.

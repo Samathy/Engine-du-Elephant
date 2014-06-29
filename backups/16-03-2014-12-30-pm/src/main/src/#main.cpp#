@@ -1,0 +1,98 @@
+
+
+#include "SDLheaders.h"
+#include "all_header.h"
+
+/**********************************
+The .cpp that holds the main function of the program. This function does all tha calling of the other functions.
+****************************************/
+
+void exit_nice()
+{
+    std::cout << "\n\nEXITING....\n\n";
+    SDL_Delay (1000);
+    SDL_Quit(); //quit SDL
+    return;
+}
+
+
+void interpret_commands(std::string argument)
+{
+
+    if (argument.compare("exit") == 0 || argument.compare("Exit") == 0 ) //Check for valid console inputs.
+    {
+        std::cout<<("Exiting...\n");
+        exit_nice();
+        return;
+    }
+    // else if (_stricmp ("help", argument) ==0 || _stricmp ("Help", argument) == 0)
+    // {
+    //     std::cout<<("Avalible commands are: \n") << ("exit - Exits the program safely.\n") << ("help - Displays this message\n");
+    // 	command_thread.join();
+    //     command();
+    // }
+    // else
+    // {
+    //     std::cout<<("Unknown command, use help.\n");
+    //     command();
+    // }
+return;
+}
+
+
+int main( int argc, char* argv[] )
+{
+    int screenData[2]; //temp var to store screen size for initialiseation of openLG/SDL.
+
+    
+    get_settings read_settings; //create a settings reading object.    
+    screenData[0] = read_settings.get_screen_size_width(); //put screen data into a temp var
+    screenData[1] = read_settings.get_screen_size_height();
+    
+    
+    SDL_Init( SDL_INIT_EVERYTHING ); //start SDL
+    SDL_Window* window = SDL_CreateWindow( "OpenGL", 100, 100, screenData[0], screenData[1], SDL_WINDOW_OPENGL); //create OpenGL window
+    SDL_GLContext context = SDL_GL_CreateContext(window); //set context as OpenGL
+
+    command commandline; //create command line object.
+    std::cout << "creating comand line thread...\n";
+    boost::thread command_thread ( boost::bind (&command::start_command, &commandline) ); //create a thread of the command line.
+    //command_thread.detach();
+    SDL_Delay(1000);
+    //std::cout << "checking for inputted commands....";
+    
+    bool i = false;
+    while (i != false)
+    {
+        if (commandline.return_command_present())
+        {
+        i = false;
+        }
+        
+    }
+    std::string temp = commandline.return_arg();
+    interpret_commands(temp);
+    
+
+    
+
+    //map mapobj(); //create new map object (constructer opens map file)
+        
+    //read_map(); //run map reading function.
+    
+    SDL_Delay ( 6000); //wait for 5 secs
+        
+    SDL_GL_DeleteContext(context); //clean up
+
+    SDL_Quit(); //quit SDL
+    
+    return 0;
+}
+
+
+
+//void game loop()
+//{
+
+
+
