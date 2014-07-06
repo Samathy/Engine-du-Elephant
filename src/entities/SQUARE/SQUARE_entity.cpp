@@ -55,10 +55,10 @@ void SQUARE::render()
 	//std::cout << "Points = PointBR: " << pointBR[0] << " PointBR: " << pointBR[1] << "\n";
 	//std::cout << "Points = PointBL: " << pointBL[0] << " PointBL: " << pointTL[1] << "\n";
 
-            glMatrixMode (GL_MODELVIEW);
+            //glMatrixMode (GL_MODELVIEW);
 	    glLoadIdentity();
-	    glTranslatef(1280 /2.f, 720/2.f, 0.f); //remove hard coded translate values here and ensure that the real screen sizes get put in :)
-        glScalef(500.0f, 500.0f, 500.0f);
+	    //glTranslatef(1280 /2.f, 720/2.f, 0.f); //remove hard coded translate values here and ensure that the real screen sizes get put in :)
+        glScalef(100.0f, 100.0f, 100.0f);
        	glBegin(GL_QUADS); //draw quad.
             glColor4f(1.0f,0.0f,0.0f, 1.0f);
             //glColor3f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2]);

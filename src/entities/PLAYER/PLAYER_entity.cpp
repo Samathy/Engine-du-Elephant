@@ -42,8 +42,8 @@ void PLAYER::render()
         
 	glMatrixMode (GL_MODELVIEW);
         glLoadIdentity(); //load ID
-       	glTranslatef(1280.0f /2.f, 720.0f/2.f, 0.f); //Remove hardcoded translate values and passt over screensize.
-        glScalef(500.0f, 500.0f, 0.0f);
+       	//glTranslatef(1280.0f /2.f, 720.0f/2.f, 0.f); //Remove hardcoded translate values and passt over screensize.
+        //glScalef(500.0f, 500.0f, 0.0f);
 	glBegin(GL_QUADS); //draw quad.
             //glColor3f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2]);
             glColor4f(0.0f, 1.0f, 0.0f, 1.0f);

@@ -26,7 +26,7 @@ bool initGL(int width, int height)
     GLdouble tempH = (double) height;
     
     
-    glViewport (0, 0, width, height);
+    glViewport (0, 0, 1920.0, 1080.0);
     
         GLenum error = glGetError();
     if( error != GL_NO_ERROR )
@@ -45,14 +45,14 @@ bool initGL(int width, int height)
        return false;
    }
     
-    glOrtho(0.0, tempW, tempH, 0.0, 1, -1);
+    glOrtho(0.0, 1920.0, 1080.0, 0.0, 1.0, -1.0);
     
     error = glGetError();
     if( error != GL_NO_ERROR )
     {
-       std::cout << "Error initializing OpenGL! 47" << gluErrorString( error ) << "\n";
-       return false;
-   }
+        std::cout << "Error initializing OpenGL! 47 " << gluErrorString( error ) << "\n";
+        return false;
+    }
     //Initialize Modelview Matrix
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
@@ -262,43 +262,43 @@ int main( int argc, char* argv[] )
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2); //set GL version of the window
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);    
-    SDL_Window* window = SDL_CreateWindow( "RainbowRPG - SDL2.0 - OpenGL2.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenDataW, screenDataH, SDL_WINDOW_OPENGL); //create OpenGL window
+    SDL_Window* window = SDL_CreateWindow( "RainbowRPG - SDL2.0 - OpenGL2.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, SDL_WINDOW_OPENGL); //create OpenGL window
 
     SDL_GLContext glcontext = SDL_GL_CreateContext(window); //set context as OpenGL
         initGL(screenDataW, screenDataH); //init GL.
     
-    GLenum err = glewInit();
+    //GLenum err = glewInit();
 
-    if (GLEW_OK != err)
-    {
-         std::cout << "initialiseing GLEW failed." << glewGetErrorString(err);
-         return 0 ;
-    }
+    //if (GLEW_OK != err)
+    //{
+         //std::cout << "initialiseing GLEW failed." << glewGetErrorString(err);
+         //return 0 ;
+   // }
 
     std::cout << "Using GLEW - " << glewGetString(GLEW_VERSION) << "\n";
 
-//     glMatrixMode (GL_MODELVIEW);
-//   glLoadIdentity();     
-//        glScalef(scale, scale, scale);
-//      glBegin(GL_QUADS); //draw quad.
-//            glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-//            //glColor3f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2]);
-//            //glColor4f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2],SQUARE::colour4f[3]);
-//            glVertex2f(-1.0f,1.0f);
-//            glVertex2f(1.0f,1.0f);
-//            glVertex2f(1.0f,-1.0f);
-//            glVertex2f(-1.0f,-1.0f);
-//            glEnd();
-//           
-//            GLenum error = glGetError();
-//            if( error != GL_NO_ERROR )
-//            {
-//            std::cout << "Error drawing! 177 " << gluErrorString( error ) << "\n";
-//            return false;
-//            }
-//            SDL_GL_SwapWindow(window); //show content.
-//            SDL_Delay(1000);
-//     return 0;
+     glMatrixMode (GL_MODELVIEW);
+   glLoadIdentity();     
+      glScalef(100.0, 100.0, 100.0);
+      glBegin(GL_QUADS); //draw quad.
+            glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+            //glColor3f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2]);
+            //glColor4f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2],SQUARE::colour4f[3]);
+            glVertex2f(-0.5f,-0.5f);
+            glVertex2f(0.5f,-0.5f);
+            glVertex2f(0.5f,0.5f);
+            glVertex2f(-0.5f,-0.5f);
+            glEnd();
+           
+            GLenum error = glGetError();
+            if( error != GL_NO_ERROR )
+            {
+            std::cout << "Error drawing! 177 " << gluErrorString( error ) << "\n";
+            return false;
+            }
+            SDL_GL_SwapWindow(window); //show content.
+            SDL_Delay(10000);
+     return 0;
 
     //command_thread.detach();
 //    SDL_Delay(1000);
