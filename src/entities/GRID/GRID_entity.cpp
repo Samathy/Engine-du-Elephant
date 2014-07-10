@@ -23,6 +23,9 @@ bool GRID::return_solid()
 
 void GRID::render()
 {
+    	    glLoadIdentity();
+	    glTranslatef( 1920 /2.f, 1080/2.f, 0.f); //remove hard coded translate values here and ensure that the real screen sizes get put in :)
+        glScalef(500.0f, 500.0f, 500.0f);
 //Renders a large grid showing all the elements on the screen.
         glBegin(GL_LINES);
             glColor3f(1.f,0.f,0.f);

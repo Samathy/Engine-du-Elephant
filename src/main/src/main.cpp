@@ -277,18 +277,18 @@ int main( int argc, char* argv[] )
 
     std::cout << "Using GLEW - " << glewGetString(GLEW_VERSION) << "\n";
 
-     glMatrixMode (GL_MODELVIEW);
-   glLoadIdentity();     
-      glScalef(100.0, 100.0, 100.0);
-      glBegin(GL_QUADS); //draw quad.
-            glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+     //glMatrixMode (GL_MODELVIEW);
+   //glLoadIdentity();     
+    //  glScalef(100.0, 100.0, 100.0);
+      //glBegin(GL_QUADS); //draw quad.
+            //glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
             //glColor3f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2]);
             //glColor4f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2],SQUARE::colour4f[3]);
-            glVertex2f(-0.5f,-0.5f);
-            glVertex2f(0.5f,-0.5f);
-            glVertex2f(0.5f,0.5f);
-            glVertex2f(-0.5f,-0.5f);
-            glEnd();
+            //glVertex2f(-0.5f,-0.5f);
+            //glVertex2f(0.5f,-0.5f);
+            //glVertex2f(0.5f,0.5f);
+            //glVertex2f(-0.5f,-0.5f);
+            //glEnd();
            
             GLenum error = glGetError();
             if( error != GL_NO_ERROR )
@@ -296,9 +296,9 @@ int main( int argc, char* argv[] )
             std::cout << "Error drawing! 177 " << gluErrorString( error ) << "\n";
             return false;
             }
-            SDL_GL_SwapWindow(window); //show content.
-            SDL_Delay(10000);
-     return 0;
+            //SDL_GL_SwapWindow(window); //show content.
+            //SDL_Delay(10000);
+     //return 0;
 
     //command_thread.detach();
 //    SDL_Delay(1000);
