@@ -19,10 +19,12 @@ class map
 
     public:
         map(int, int, std::string); //constructer, load the map.
-        base_entity* entityStack[200]; //array of entity pointers.
+base_entity* entityStack[200]; //array of entity pointers.
         int return_number_of_entities(); //returns all the entities currently initialised.
         void destroy_map();
     private:
+        int mem_amount; //the amount of memory allocated for entities.
+        int no_entities; //the number of entities found to be defined in the map file.
         std::string lines[512]; //string array to hold the contents of our map file.
         std::string mapName; //string for the name of our current map to go into.
         bool read_map_file(int, int, std::string); //read the map file.
@@ -32,4 +34,5 @@ class map
 };
 
 #endif
+
 

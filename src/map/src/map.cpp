@@ -50,6 +50,12 @@ return;
 
 void map::entity_init(int i)
 {
+
+    this->mem_amount =  (sizeof(PLAYER) * no_entities); //make the memory amount equal to object size times number of objects
+   //char entities  = new char[(sizeof(PLAYER)*no_entities)]; //allocate memory for entities.
+
+    std::cout << "Memory useage: " << mem_amount << "\n\n";
+    std::cout << "Number of entities: " << no_entities << "\n\n";
     //unsigned int strPos; 
     std::string cmpEndDec("%");
     std::string cmpEndSet("#");
@@ -64,7 +70,7 @@ void map::entity_init(int i)
 //    
 //    if (i >= 400)
 //    {
-//        std::cout <<"i = > 400 >.< \n I= " << i <<" \n";
+//      Ma  std::cout <<"i = > 400 >.< \n I= " << i <<" \n";
 //        std::terminate();
 //    }
     
@@ -239,13 +245,16 @@ bool map::read_map_file (int width, int height, std::string filename)
 
     std::string cmp ("Name"); //var with comparason strings in.
 
-    std::size_t found = map::lines[0].find(cmp);
+    this->no_entities = atoi(map::lines[0].c_str()); //make the number of entities = whatever is at the start of the file.
+
+
+    std::size_t found = map::lines[1].find(cmp);
     
     if (found != std::string::npos)
     {
         cmp.assign ("=");
-        strPos = map::lines[0].rfind(cmp); // find the last instance of = in the string.
-        std::string tmp = map::lines[0].substr(5); //create a new string starting at = to end of string.
+        strPos = map::lines[1].find(cmp); // find the last instance of = in the string.
+        std::string tmp = map::lines[1].substr(5); //create a new string starting at = to end of string.
         std::cout << "\n" << tmp << " <--Tempory string\n";
         //tmp.erase (0,1); //erase the = symbol
         
@@ -272,7 +281,7 @@ bool map::read_map_file (int width, int height, std::string filename)
     {
         std::cout << "Found entity declarations start\n\n";
         std::cout << map::lines[2]<< "\n";
-        map::entity_init(2); //go to init entities.
+        map::entity_init(3); //go to init entities.
 		std::cout << "Returned from init entities\n\n";
         return true;
     }

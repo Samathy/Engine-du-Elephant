@@ -50,10 +50,10 @@ void SQUARE::render()
         
        // std::cout << "Drawing Quad\n";
 	
-	std::cout << "Points = PointTL: " << pointTL[0] << " PointTL: " << pointTL[1] << "\n";
-	std::cout << "Points = PointTR: " << pointTR[0] << " PointTR: " << pointTR[1] << "\n";
-	std::cout << "Points = PointBR: " << pointBR[0] << " PointBR: " << pointBR[1] << "\n";
-	std::cout << "Points = PointBL: " << pointBL[0] << " PointBL: " << pointTL[1] << "\n";
+	//std::cout << "Points = PointTL: " << pointTL[0] << " PointTL: " << pointTL[1] << "\n";
+	//std::cout << "Points = PointTR: " << pointTR[0] << " PointTR: " << pointTR[1] << "\n";
+	//std::cout << "Points = PointBR: " << pointBR[0] << " PointBR: " << pointBR[1] << "\n";
+	//std::cout << "Points = PointBL: " << pointBL[0] << " PointBL: " << pointTL[1] << "\n";
 
             //glMatrixMode (GL_MODELVIEW);
 	    glLoadIdentity();

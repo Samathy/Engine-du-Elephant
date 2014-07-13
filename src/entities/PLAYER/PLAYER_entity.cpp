@@ -4,7 +4,7 @@ Class methods for PLAYER class.
 
 #include "all_entities.h"
 #include "all_header.h"
-
+#include "main_header.h"
 
 
 GLfloat PLAYER::return_locationX()
@@ -81,12 +81,12 @@ void PLAYER::handle_keys(int key, map* mapptr)
                int thistmpY = (this->return_locationY() * 10);
                int thistmpX = (this->return_locationX() * 10);
                 
-                std::cout << "\ntmpY = " <<  tmpY << " tmpX = " <<  tmpX << "\nthistmpY = " << thistmpY << " thistmpX =" << thistmpX << "\n" ; 
-                std::cout << "polling entity number: " << i << "\n";
-                std::cout << "entities -2 = " << (entities - 2 ) << "\n";               
+                //std::cout << "\ntmpY = " <<  tmpY << " tmpX = " <<  tmpX << "\nthistmpY = " << thistmpY << " thistmpX =" << thistmpX << "\n" ; 
+                //std::cout << "polling entity number: " << i << "\n";
+                //std::cout << "entities -2 = " << (entities - 2 ) << "\n";               
                                
-                std::cout << "thistmpX = " << thistmpX << " thistmpY = " << thistmpY << "\n";
-                std::cout << "tmpX = " << tmpX << "tmpY = " << tmpY << "\n";
+                //std::cout << "thistmpX = " << thistmpX << " thistmpY = " << thistmpY << "\n";
+                //std::cout << "tmpX = " << tmpX << "tmpY = " << tmpY << "\n";
 
                  if (tmpY == (thistmpY  - 1)  && tmpX == (thistmpX))
                     {
@@ -132,10 +132,11 @@ void PLAYER::handle_keys(int key, map* mapptr)
                
                 if (i == (entities - 1))
                 {   
-		    std::cout << "Finished checking all entities, rendering\n";	
+                    std::cout << "Finished checking all entities, rendering\n";	
                     locationYmtx.lock();
                     this->locationY = locationY - 0.1f; //Then move.
                     locationYmtx.unlock();
+                    std::cout << "This bit takes a while?";                               
                     break;
                 }   
                       

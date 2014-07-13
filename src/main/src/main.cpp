@@ -20,6 +20,8 @@ The .cpp that holds the main function of the program. This function does all tha
 
 int count;
 
+
+
 bool initGL(int width, int height)
 {
     GLdouble tempW = (double) width;
@@ -134,7 +136,7 @@ void entity_logic_loop(int entities, map* ptrmap)
         
             if (time != (startTime+1)) //if a second has not passed then
             {
-                if (ticks == 64) //check if there have been 64 ticks.
+                if (ticks == 5) //check if there have been 64 ticks.
                 {
                     while (time != (startTime+1)) // if there has been 64 ticks then loop until current time == startTime plus a second
                         {
@@ -145,7 +147,7 @@ void entity_logic_loop(int entities, map* ptrmap)
             }
             timer.stop(); //stop timer.
             timer.reset(); //reset timer.
-
+            //std::cout << "logic loop looping...";
     }
     
     return;
@@ -209,40 +211,45 @@ while ( state.return_quit_state() != true)
                         
                         for (int i = 0; i<ptrmap->return_number_of_entities(); ++i) //loop for however many 
                         {
+                            std::cout << "sending key to entities..."<< i << "\n";
                             ptrmap->entityStack[i]->handle_keys(key, ptrmap); //giv all the entities the key.
-
-                        }
+                            std::cout << "handled key...\n";
+                         } 
                     }
                 }
         }
-            //std::cout << "checking commands.\n\n";
-            
-            if (commandptr->return_command_present() == true ) // check if there is a command present.
-            {   
-                std::string temp = commandptr->return_arg(); //if there is, get it.
-                std::cout << "interpreting command: "<< temp <<"\n\n";
-                bool commands = interpret_commands(temp);
-                
-                if (commands == false) //if interpret commands returns false, then return false to exit program.
-                    {
-                        std::cout << "commands == false!\n\n";
-                        state.change_quit_state(true); //set the quit state.
-                        quit = true; //set local quit state.
-                    } //nterrupt loop and interpret command.
-                
-                else if (commands == true)
-                    {
-                        std::cout << "Restarting commandline \n\n";
-                        commandptr->start_command(); //restart commandline.
-                    }
-            }
-            
-
-
     }
-    //std::cout << "Main while loop is returning!\n\n";
 return false;
-}
+}      
+
+    //std::cout << "checking commands.\n\n";
+            
+           // if (commandptr->return_command_present() == true ) // check if there is a command present.
+          //  {   
+             //   std::string temp = commandptr->return_arg(); //if there is, get it.
+             //   std::cout << "interpreting command: "<< temp <<"\n\n";
+              //  bool commands = interpret_commands(temp);
+                
+              //  if (commands == false) //if interpret commands returns false, then return false to exit program.
+             //       {
+              //          std::cout << "commands == false!\n\n";
+            //            state.change_quit_state(true); //set the quit state.
+            //            quit = true; //set local quit state.
+             //       } //nterrupt loop and interpret command.
+                
+            //    else if (commands == true)
+             //       {
+            //            std::cout << "Restarting commandline \n\n";
+             //           commandptr->start_command(); //restart commandline.
+             //       }
+          //  }
+            
+
+
+  //  }
+    //std::cout << "Main while loop is returning!\n\n";
+//return false;
+//}
 
 int main( int argc, char* argv[] )
 {
