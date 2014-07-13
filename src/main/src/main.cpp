@@ -18,9 +18,6 @@ The .cpp that holds the main function of the program. This function does all tha
 
 
 
-int count;
-
-
 
 bool initGL(int width, int height)
 {
@@ -28,12 +25,12 @@ bool initGL(int width, int height)
     GLdouble tempH = (double) height;
     
     
-    glViewport (0, 0, 1920.0, 1080.0);
+    glViewport (0, 0, 1920.0, 1080.0); //set viewport to the entire screen.
     
         GLenum error = glGetError();
     if( error != GL_NO_ERROR )
     {
-       std::cout << "Error initializing OpenGL! 27" << gluErrorString( error ) << "\n";
+       std::cout << "Error initializing OpenGL!" << gluErrorString( error ) << "\n";
        return false;
    }    
     //Initialize Projection Matrix
@@ -43,16 +40,16 @@ bool initGL(int width, int height)
      error = glGetError();
     if( error != GL_NO_ERROR )
     {
-       std::cout << "Error initializing OpenGL! 38 " << gluErrorString( error ) << "\n";
+       std::cout << "Error initializing OpenGL! " << gluErrorString( error ) << "\n";
        return false;
    }
     
-    glOrtho(0.0, 1920.0, 1080.0, 0.0, 1.0, -1.0);
+    glOrtho(0.0, 1920.0, 1080.0, 0.0, 1.0, -1.0); // Set matrixs.
     
     error = glGetError();
     if( error != GL_NO_ERROR )
     {
-        std::cout << "Error initializing OpenGL! 47 " << gluErrorString( error ) << "\n";
+        std::cout << "Error initializing OpenGL!" << gluErrorString( error ) << "\n";
         return false;
     }
     //Initialize Modelview Matrix
@@ -62,7 +59,7 @@ bool initGL(int width, int height)
    error = glGetError();
    if( error != GL_NO_ERROR )
     {
-       std::cout << "Error initializing OpenGL! 57 " << gluErrorString( error ) << "\n";
+       std::cout << "Error initializing OpenGL! " << gluErrorString( error ) << "\n";
        return false;
    }
     
@@ -87,8 +84,6 @@ bool interpret_commands(std::string argument)
 
     game_state state; //new gamestate object 
     
-    std::cout << "this is interpret commands func\n\n";
-    std::cout << "Interpreting the command: " << argument << "\n\n";
     
     if (argument.compare("exit") == 0 || argument.compare("Exit") == 0 ) //Check for valid console inputs.
     {
@@ -136,7 +131,7 @@ void entity_logic_loop(int entities, map* ptrmap)
         
             if (time != (startTime+1)) //if a second has not passed then
             {
-                if (ticks == 5) //check if there have been 64 ticks.
+                if (ticks == 64) //check if there have been 64 ticks.
                 {
                     while (time != (startTime+1)) // if there has been 64 ticks then loop until current time == startTime plus a second
                         {
@@ -147,7 +142,7 @@ void entity_logic_loop(int entities, map* ptrmap)
             }
             timer.stop(); //stop timer.
             timer.reset(); //reset timer.
-            //std::cout << "logic loop looping...";
+            std::cout << "ticks..." << ticks << "\n";
     }
     
     return;
@@ -155,24 +150,19 @@ void entity_logic_loop(int entities, map* ptrmap)
 
 }
 
-bool game_loop(command* commandptr, map* ptrmap, SDL_Window* ptrwindow) //game loop.
-//bool game_loop( map* ptrmap, SDL_Window* ptrwindow) //game loop.
+bool game_loop( map* ptrmap, SDL_Window* ptrwindow) //game loop.
 {
         
         SDL_Event event; //init SDL events.
         game_state state; //create new game state object.
           
 
-       // game_state state; //create game state object.
         bool quit = false; //temp var to indicate the state of the quit.
 
 while ( state.return_quit_state() != true)
 {
 
             glClear ( GL_COLOR_BUFFER_BIT); //clear the screen.
-//            glMatrixMode (GL_MODELVIEW);
-//	    glLoadIdentity();
-//	    glTranslatef(1920 /2.f, 1080/2.f, 0.f);
 
 	    std::cout << "Entities: " << ptrmap->return_number_of_entities() << "\n";
 
@@ -221,7 +211,9 @@ while ( state.return_quit_state() != true)
     }
 return false;
 }      
-
+    //This is commented out because enabling it was causing the game loop to lag horrendiously. 
+    //I think i will be removing command line functionality for now but leaving the code in here untill i decide to do something with it.
+    
     //std::cout << "checking commands.\n\n";
             
            // if (commandptr->return_command_present() == true ) // check if there is a command present.
@@ -272,30 +264,11 @@ int main( int argc, char* argv[] )
     SDL_Window* window = SDL_CreateWindow( "RainbowRPG - SDL2.0 - OpenGL2.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, SDL_WINDOW_OPENGL); //create OpenGL window
 
     SDL_GLContext glcontext = SDL_GL_CreateContext(window); //set context as OpenGL
-        initGL(screenDataW, screenDataH); //init GL.
+    initGL(screenDataW, screenDataH); //init GL.
     
-    //GLenum err = glewInit();
-
-    //if (GLEW_OK != err)
-    //{
-         //std::cout << "initialiseing GLEW failed." << glewGetErrorString(err);
-         //return 0 ;
-   // }
 
     std::cout << "Using GLEW - " << glewGetString(GLEW_VERSION) << "\n";
 
-     //glMatrixMode (GL_MODELVIEW);
-   //glLoadIdentity();     
-    //  glScalef(100.0, 100.0, 100.0);
-      //glBegin(GL_QUADS); //draw quad.
-            //glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-            //glColor3f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2]);
-            //glColor4f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2],SQUARE::colour4f[3]);
-            //glVertex2f(-0.5f,-0.5f);
-            //glVertex2f(0.5f,-0.5f);
-            //glVertex2f(0.5f,0.5f);
-            //glVertex2f(-0.5f,-0.5f);
-            //glEnd();
            
             GLenum error = glGetError();
             if( error != GL_NO_ERROR )
@@ -303,12 +276,7 @@ int main( int argc, char* argv[] )
             std::cout << "Error drawing! 177 " << gluErrorString( error ) << "\n";
             return false;
             }
-            //SDL_GL_SwapWindow(window); //show content.
-            //SDL_Delay(10000);
-     //return 0;
-
-    //command_thread.detach();
-//    SDL_Delay(1000);
+   
     std::string mapFile ("a.map");
     std::cout << "Initialising map!\n\n";
     
@@ -317,28 +285,27 @@ int main( int argc, char* argv[] )
     ptrmap = &currentMap; //make pointer point to instance of map.
     std::cout << "checking for inputted commands....";
     
+    //command thread disabled for now.
 
-    command* ptrCommand; //create a pointer of type command.
-    command commandline; //create command line object.
-    std::cout << "creating command line thread...\n";
-    boost::thread command_thread ( boost::bind (&command::start_command, &commandline) ); //create a thread of the command line.
-    std::cout << "Command thread started\n\n";
-    ptrCommand = & commandline; //make pointer point to command object.
+    //command* ptrCommand; //create a pointer of type command.
+    //command commandline; //create command line object.
+    //std::cout << "creating command line thread...\n";
+    //boost::thread command_thread ( boost::bind (&command::start_command, &commandline) ); //create a thread of the command line.
+    //std::cout << "Command thread started\n\n";
+    //ptrCommand = & commandline; //make pointer point to command object.
     
     int entities = ptrmap -> return_number_of_entities();
     
     boost::thread logic_loop (boost::bind(&entity_logic_loop, entities, ptrmap)); //create logic loop thread.
     
     std::cout << "Running game loop func\n\n";
-    game_loop(ptrCommand, ptrmap, window);
-    //game_loop( ptrmap, window);
+    game_loop(ptrmap, window);
 
     currentMap.destroy_map(); //destroy the map!
     SDL_GL_DeleteContext(glcontext); //clean up
     SDL_Quit(); //quit SDL   
     logic_loop.join(); //join logic thread.
-    std::cout << "\nQuited nicely, press any letter/number key then tap return to terminate \n(This is a problem with using threads and std::cin together, must find a better way of doing this safely\n\n"; // - Remember killing the thread causes recursive terminate >.<.)\n\n";
-    command_thread.join(); //detach both out threads.
+    ///command_thread.join(); //detach both out threads.
     
 
 

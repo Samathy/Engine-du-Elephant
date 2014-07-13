@@ -36,16 +36,13 @@ void PLAYER::render()
         GLfloat pointTR[2] = {(this->locationX + 0.1f), (this->locationY)};
         GLfloat pointBR[2] = {(this->locationX + 0.1f), (this->locationY - 0.1f)};
         GLfloat pointBL[2] = {(this->locationX), (this->locationY - 0.1f)};
-        
-        //std::cout << "colours: " << colour4f[0] << " " << colour4f[1] << " " << colour4f[2] << " " << colour4f[3] << "\n";
-        
+             
         
 	glMatrixMode (GL_MODELVIEW);
         glLoadIdentity(); //load ID
        	glTranslatef(1920/2.f, 1080/2.f, 0.0f); //Remove hardcoded translate values and passt over screensize.
         glScalef(500.0f, 500.0f, 0.0f);
 	glBegin(GL_QUADS); //draw quad.
-            //glColor3f(SQUARE::colour4f[0],SQUARE::colour4f[1],SQUARE::colour4f[2]);
             glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
             glVertex2f(pointTL[0],pointTL[1]);
             glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
@@ -63,10 +60,7 @@ return;
 
 void PLAYER::handle_keys(int key, map* mapptr)
 {
-
-    
-    
-   
+  
     
     if (key == 119 || key ==  1073741906 ) //if key == W then try to move forward.
     {
@@ -80,14 +74,7 @@ void PLAYER::handle_keys(int key, map* mapptr)
                int tmpX = (mapptr->entityStack[i]->return_locationX() * 10);
                int thistmpY = (this->return_locationY() * 10);
                int thistmpX = (this->return_locationX() * 10);
-                
-                //std::cout << "\ntmpY = " <<  tmpY << " tmpX = " <<  tmpX << "\nthistmpY = " << thistmpY << " thistmpX =" << thistmpX << "\n" ; 
-                //std::cout << "polling entity number: " << i << "\n";
-                //std::cout << "entities -2 = " << (entities - 2 ) << "\n";               
-                               
-                //std::cout << "thistmpX = " << thistmpX << " thistmpY = " << thistmpY << "\n";
-                //std::cout << "tmpX = " << tmpX << "tmpY = " << tmpY << "\n";
-
+             
                  if (tmpY == (thistmpY  - 1)  && tmpX == (thistmpX))
                     {
                        std::cout << "entity in intended place, handling...\n";
@@ -115,20 +102,6 @@ void PLAYER::handle_keys(int key, map* mapptr)
                 {
 		    std::cout << "Entity not where we want to be\n";	
 		}
-
-                    //int e = entities;
-                   // --e;
-		    //--e;
-		    //std::cout << "
-
-                    //if (i == e) //and we're at the end of the entities
-                    //{
-                        //locationYmtx.lock();
-                       // this->locationY = locationY + 0.1f; //Then move.
-                       // locationYmtx.unlock();
-                       // break; 
-                    //}
-                //}
                
                 if (i == (entities - 1))
                 {   
@@ -154,27 +127,24 @@ void PLAYER::handle_keys(int key, map* mapptr)
              
             
             for (int i=0; (i)<entities; ++i) //loop for the amount of instatiated entities.
-            {
+                {
                
-                int tmpY = (mapptr->entityStack[i]->return_locationY() * 10);
-                int tmpX = (mapptr->entityStack[i]->return_locationX() * 10);
-                int thistmpY = (this->return_locationY() * 10);
-                int thistmpX = (this->return_locationX() * 10);
+                    int tmpY = (mapptr->entityStack[i]->return_locationY() * 10);
+                    int tmpX = (mapptr->entityStack[i]->return_locationX() * 10);
+                    int thistmpY = (this->return_locationY() * 10);
+                    int thistmpX = (this->return_locationX() * 10);
                 
                                         
  
                 if (tmpY == (thistmpY) && tmpX == (thistmpX - 1))
                     {
-                        std::cout << "There is something in the space we want to move to.\n\n";    
                         mapptr->entityStack[i]->handle_collision(0,0); //then call that entities cillision function. with n o collision parameters.
                         if (mapptr->entityStack[i]->return_solid() == true) //if the entity in the way is solid then just dont move.
                         {   
-                            std::cout << "Solid detected.\n";
                             break;
                         }
                         else if (mapptr->entityStack[i]->return_solid() == false) //is there isnt a solid entity in the place we want to move to, then move!
                         {
-                            std::cout << "non-solid detected.\n\n";
                             locationYmtx.lock();
                             this->locationX = locationX - 0.1f; //if the key = W then move one up
                             locationYmtx.unlock();
@@ -183,71 +153,50 @@ void PLAYER::handle_keys(int key, map* mapptr)
                     }
                 
                 
-               else if (tmpY != (thistmpY) && tmpX != (thistmpX - 1)) // If the entity we're looking at is not at the position we want to move to.
-                {
-                              
-		    std::cout << "Entity not where we want to be\n";	
-		}
+                 else if (tmpY != (thistmpY) && tmpX != (thistmpX - 1)) // If the entity we're looking at is not at the position we want to move to.
+                    {                            
+		                std::cout << "Entity not where we want to be\n";	
+		            }
 
-                    //int e = entities;
-                   // --e;
-		    //--e;
-		    //std::cout << "
-
-                    //if (i == e) //and we're at the end of the entities
-                    //{
-                        //locationYmtx.lock();
-                       // this->locationY = locationY + 0.1f; //Then move.
-                       // locationYmtx.unlock();
-                       // break; 
-                    //}
-                //}
-               
+              
                 if (i == (entities - 1))
-                {   
-		    std::cout << "Finished checking all entities, rendering\n";	
-                    locationYmtx.lock();
-                    this->locationX = locationX - 0.1f; //Then move.
-                    locationYmtx.unlock();
-                    break;
-                }   
+                    {   
+		                std::cout << "Finished checking all entities, rendering\n";	
+                        locationYmtx.lock();
+                        this->locationX = locationX - 0.1f; //Then move.
+                        locationYmtx.unlock();
+                        break;
+                    }   
                       
              
-             }   
-            return;
-           
+                }
+
+       return;    
     }
     
             
     if (key == 100 || key == 1073741903 ) //if key == D then try to move RIGHT.
     {
-            int entities = mapptr->return_number_of_entities();
+        int entities = mapptr->return_number_of_entities();
             
-            for (int i=0; (i)<entities; ++i) //loop for the amount of instatiated entities.
+        for (int i=0; (i)<entities; ++i) //loop for the amount of instatiated entities.
             {
                
                 int tmpY = (mapptr->entityStack[i]->return_locationY() * 10);
                 int tmpX = (mapptr->entityStack[i]->return_locationX() * 10);
                 int thistmpY = (this->return_locationY() * 10);
                 int thistmpX = (this->return_locationX() * 10);
-                
-               // std::cout << "tmpY = " <<  tmpY << " tmpX = " <<  tmpX << " thistmpY = " << thistmpY << " thistmpX =" << thistmpX << "\n" ; 
-                //std::cout << "polling entity number: " << i << "\n";
-                //std::cout << "entities -2 = " << (entities - 2 ) << "\n";               
- 
+
                  if (tmpY == (thistmpY) && tmpX == (thistmpX + 1))
-                    {
-                    
-                        std::cout << "Returned entity present in X " << tmpX << " Y " << tmpY << "\n\n";
-		      	    mapptr->entityStack[i]->handle_collision(0,0); //then call that entities cillision function. with n o collision parameters.
+                    {                    
+		      	        mapptr->entityStack[i]->handle_collision(0,0); //then call that entities cillision function. with n o collision parameters.
+                     
                         if (mapptr->entityStack[i]->return_solid() == true) //if the entity in the way is solid then just dont move.
                         {
-				std::cout << "breaking...\n\n";	
                             break;
                         }
                         else if (mapptr->entityStack[i]->return_solid() == false) //is there isnt a solid entity in the place we want to move to, then move!
                         {
-			    std::cout << "is not solid, moving...\n";
                             locationYmtx.lock();
                             this->locationX = locationX + 0.1f; //if the key = W then move one up
                             locationYmtx.unlock();
@@ -256,37 +205,23 @@ void PLAYER::handle_keys(int key, map* mapptr)
                     }
                 
                 
-                else if (tmpY != (thistmpY) && tmpX != (thistmpX + 1)) // If the entity we're looking at is not at the position we want to move to.
-                                {
-		    std::cout << "Entity not where we want to be\n";	
-		}
+                    else if (tmpY != (thistmpY) && tmpX != (thistmpX + 1)) // If the entity we're looking at is not at the position we want to move to.
+                    {
+		                   std::cout << "Entity not where we want to be\n";	
+                	}
 
-                    //int e = entities;
-                   // --e;
-		    //--e;
-		    //std::cout << "
-
-                    //if (i == e) //and we're at the end of the entities
-                    //{
-                        //locationYmtx.lock();
-                       // this->locationY = locationY + 0.1f; //Then move.
-                       // locationYmtx.unlock();
-                       // break; 
-                    //}
-                //}
                
-                if (i == (entities - 1))
-                {   
-		    std::cout << "Finished checking all entities, rendering\n";	
-                    locationYmtx.lock();
-                    this->locationX = locationX + 0.1f; //Then move.
-                    locationYmtx.unlock();
-                    break;
-                }   
+                    if (i == (entities - 1))
+                    {   
+                        locationYmtx.lock();
+                        this->locationX = locationX + 0.1f; //Then move.
+                        locationYmtx.unlock();
+                        break;
+                    }   
                       
-             }   
-            std::cout << "Loop broke\n\n";
-            return;
+             }  
+
+        return;
            
     }
     
@@ -297,8 +232,7 @@ void PLAYER::handle_keys(int key, map* mapptr)
             int entities = mapptr->return_number_of_entities();
             
             for (int i=0; (i)<entities; ++i) //loop for the amount of instatiated entities.
-            {
-               
+            {               
                 int tmpY = (mapptr->entityStack[i]->return_locationY() * 10);
                 int tmpX = (mapptr->entityStack[i]->return_locationX() * 10);
                 int thistmpY = (this->return_locationY() * 10);
@@ -306,20 +240,14 @@ void PLAYER::handle_keys(int key, map* mapptr)
                 
   
                  if (tmpY == (thistmpY + 1) && tmpX == thistmpX )
-                    {
-
-			    std::cout << "found entity\n";    
-                    
-                         mapptr->entityStack[i]->handle_collision(0,0); //then call that entities cillision function. with n o collision parameters.
+                    {                
+                        mapptr->entityStack[i]->handle_collision(0,0); //then call that entities cillision function. with n o collision parameters.
                         if (mapptr->entityStack[i]->return_solid() == true) //if the entity in the way is solid then just dont move.
-                        {
-				
-			    std::cout << "Is solid, breaking.\n";	
+                        {				
                             break;
                         }
                         else if (mapptr->entityStack[i]->return_solid() != true) //is there isnt a solid entity in the place we want to move to, then move!
                         {
-			    std::cout << "Is not solid\n";	
                             locationYmtx.lock();
                             this->locationY = locationY + 0.1f; //if the key = W then move one up
                             locationYmtx.unlock();
@@ -330,35 +258,21 @@ void PLAYER::handle_keys(int key, map* mapptr)
                 
                else  if (tmpY != (thistmpY + 1) && tmpX != thistmpX ) // If the entity we're looking at is not at the position we want to move to.
                 {
-		    std::cout << "Entity not where we want to be\n";	
-		}
+        		    std::cout << "Entity not where we want to be\n";	
+	        	}
 
-                    //int e = entities;
-                   // --e;
-		    //--e;
-		    //std::cout << "
-
-                    //if (i == e) //and we're at the end of the entities
-                    //{
-                        //locationYmtx.lock();
-                       // this->locationY = locationY + 0.1f; //Then move.
-                       // locationYmtx.unlock();
-                       // break; 
-                    //}
-                //}
                
                 if (i == (entities - 1))
                 {   
-		    std::cout << "Finished checking all entities, rendering\n";	
                     locationYmtx.lock();
                     this->locationY = locationY + 0.1f; //Then move.
                     locationYmtx.unlock();
                     break;
                 }   
                       
-             }   
-            return;
-           
+             }
+
+            return;          
     }
     
     
