@@ -9,7 +9,7 @@ Master Object header.
 
 
 #include "command_header.h"
-#include "init_header.h"
+//#include "init_header.h"
 #include "main_header.h"
 #include "entity_header.h"
 #include "map_header.h"

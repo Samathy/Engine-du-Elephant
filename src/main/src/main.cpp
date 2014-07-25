@@ -217,11 +217,6 @@ int main( int argc, char* argv[] )
 {
        
     char* settings_file = "conf.lua";
-
-    //get_settings read_settings; //create a settings reading object.    
-    //int screenDataW = read_settings.get_screen_size_width(); //get desired screen sizes from settings file.
-    //int screenDataH = read_settings.get_screen_size_height();
-    //WE GONNA USE LUA NOW KID!
         
     lua_State* L = luaL_newstate(); //set up Lua
     luaopen_base(L);
@@ -261,7 +256,7 @@ int main( int argc, char* argv[] )
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2); //set GL version of the window
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);    
-    SDL_Window* window = SDL_CreateWindow( "RainbowRPG - SDL2.0 - OpenGL2.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenDataW, screenDataH, SDL_WINDOW_OPENGL); //create OpenGL window
+    SDL_Window* window = SDL_CreateWindow( name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenDataW, screenDataH, SDL_WINDOW_OPENGL); //create OpenGL window
 
     SDL_GLContext glcontext = SDL_GL_CreateContext(window); //set context as OpenGL
     initGL(screenDataW, screenDataH); //init GL.
