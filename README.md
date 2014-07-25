@@ -9,6 +9,16 @@ This code is:
 3)Badly commented
 4)Doesnt even work very well.
 
+
+Depends on:
+
+SDL 2.0+
+OpenGL 2.1
+Boost 1.53+ (Could probably use less versions that that, but thats the only version i have tested on.)
+Lua 5.2
+
+
+
 TODO
 ==================
 
