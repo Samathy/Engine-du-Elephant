@@ -5,7 +5,7 @@ entity class. contains the master entity class. This class can be uysed as a bas
 //class base_entity
 //{
 //    public:
-//        base_entity (int, int, int, std::string); //constructer, takes two ints as positions, an int as the colour (TODO work out how to hold three values in one int.) and a string as the type.   
+//        base_entity (int, int, int, std::string); //constructer, takes two ints as positions, an int as the colour and a string as the amount of verticies
 //        base_entity (int, int, std::string); //constructer that doesnt take colours. (for testing)
 //        void do_logic(int); //function to run this entities logic. takes an int as the current tick in order to calculate how much time it needs to do something.
 //        void render(); //renders current object.

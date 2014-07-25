@@ -16,8 +16,7 @@ Master Object header.
 #include "game_state_header.h"
 #include "timer.h"
 #include "SDLheaders.h"
-
-
+#include "lua_header.h"
 #endif
 
 

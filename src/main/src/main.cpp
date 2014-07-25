@@ -25,7 +25,7 @@ bool initGL(int width, int height)
     GLdouble tempH = (double) height;
     
     
-    glViewport (0, 0, 1920.0, 1080.0); //set viewport to the entire screen.
+    glViewport (0, 0, tempW, tempH); //set viewport to the entire screen.
     
         GLenum error = glGetError();
     if( error != GL_NO_ERROR )
@@ -211,46 +211,37 @@ while ( state.return_quit_state() != true)
     }
 return false;
 }      
-    //This is commented out because enabling it was causing the game loop to lag horrendiously. 
-    //I think i will be removing command line functionality for now but leaving the code in here untill i decide to do something with it.
-    
-    //std::cout << "checking commands.\n\n";
-            
-           // if (commandptr->return_command_present() == true ) // check if there is a command present.
-          //  {   
-             //   std::string temp = commandptr->return_arg(); //if there is, get it.
-             //   std::cout << "interpreting command: "<< temp <<"\n\n";
-              //  bool commands = interpret_commands(temp);
-                
-              //  if (commands == false) //if interpret commands returns false, then return false to exit program.
-             //       {
-              //          std::cout << "commands == false!\n\n";
-            //            state.change_quit_state(true); //set the quit state.
-            //            quit = true; //set local quit state.
-             //       } //nterrupt loop and interpret command.
-                
-            //    else if (commands == true)
-             //       {
-            //            std::cout << "Restarting commandline \n\n";
-             //           commandptr->start_command(); //restart commandline.
-             //       }
-          //  }
-            
 
-
-  //  }
-    //std::cout << "Main while loop is returning!\n\n";
-//return false;
-//}
 
 int main( int argc, char* argv[] )
 {
        
+    char* settings_file = "conf.lua";
+
+    //get_settings read_settings; //create a settings reading object.    
+    //int screenDataW = read_settings.get_screen_size_width(); //get desired screen sizes from settings file.
+    //int screenDataH = read_settings.get_screen_size_height();
+    //WE GONNA USE LUA NOW KID!
+        
+    lua_State* L = luaL_newstate();
+    luaopen_base(L);
+    luaopen_io(L);
+    luaopen_string(L);
+    luaopen_math(L);
+
+    luaL_loadfile(L, settings_file) || lua_pcall(L, 0,0,0);
+
+    lua_getglobal(L, "width");
+    lua_getglobal(L, "height");
+    int screenDataW = (int)lua_tonumber(L, -2);
+    int screenDataH = (int)lua_tonumber(L, -1);
+    std::cout << "Screen data: " << screenDataW << ", " << screenDataH << "\n";
+
+
     
-    get_settings read_settings; //create a settings reading object.    
-    int screenDataW = read_settings.get_screen_size_width(); //get desired screen sizes from settings file.
-    int screenDataH = read_settings.get_screen_size_height();
-    
+   
+
+
 
     
     if (SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
@@ -261,7 +252,7 @@ int main( int argc, char* argv[] )
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2); //set GL version of the window
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);    
-    SDL_Window* window = SDL_CreateWindow( "RainbowRPG - SDL2.0 - OpenGL2.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, SDL_WINDOW_OPENGL); //create OpenGL window
+    SDL_Window* window = SDL_CreateWindow( "RainbowRPG - SDL2.0 - OpenGL2.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenDataW, screenDataH, SDL_WINDOW_OPENGL); //create OpenGL window
 
     SDL_GLContext glcontext = SDL_GL_CreateContext(window); //set context as OpenGL
     initGL(screenDataW, screenDataH); //init GL.
@@ -284,15 +275,7 @@ int main( int argc, char* argv[] )
     map currentMap (screenDataW, screenDataH, mapFile);
     ptrmap = &currentMap; //make pointer point to instance of map.
     std::cout << "checking for inputted commands....";
-    
-    //command thread disabled for now.
 
-    //command* ptrCommand; //create a pointer of type command.
-    //command commandline; //create command line object.
-    //std::cout << "creating command line thread...\n";
-    //boost::thread command_thread ( boost::bind (&command::start_command, &commandline) ); //create a thread of the command line.
-    //std::cout << "Command thread started\n\n";
-    //ptrCommand = & commandline; //make pointer point to command object.
     
     int entities = ptrmap -> return_number_of_entities();
     
@@ -305,7 +288,6 @@ int main( int argc, char* argv[] )
     SDL_GL_DeleteContext(glcontext); //clean up
     SDL_Quit(); //quit SDL   
     logic_loop.join(); //join logic thread.
-    ///command_thread.join(); //detach both out threads.
     
 
 

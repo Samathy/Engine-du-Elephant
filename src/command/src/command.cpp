@@ -45,7 +45,7 @@ void command::start_command()
     //std::cout << "arg locked start_command\n";
         command::arg = string; //push command into command class's thing.
     arg_mtx.unlock();
-    //std::cout << "arg unlocked start_command\n";
+   //std::cout << "arg unlocked start_command\n";
 
     //std::cout << "present locked start_command\n";
     present_mtx.lock(); //lock this var
