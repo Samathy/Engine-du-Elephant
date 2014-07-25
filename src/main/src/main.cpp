@@ -223,19 +223,28 @@ int main( int argc, char* argv[] )
     //int screenDataH = read_settings.get_screen_size_height();
     //WE GONNA USE LUA NOW KID!
         
-    lua_State* L = luaL_newstate();
+    lua_State* L = luaL_newstate(); //set up Lua
     luaopen_base(L);
     luaopen_io(L);
     luaopen_string(L);
     luaopen_math(L);
 
-    luaL_loadfile(L, settings_file) || lua_pcall(L, 0,0,0);
+    luaL_loadfile(L, settings_file) || lua_pcall(L, 0,0,0); //load initial setup script
 
-    lua_getglobal(L, "width");
+    lua_getglobal(L, "width"); //get width and height
     lua_getglobal(L, "height");
-    int screenDataW = (int)lua_tonumber(L, -2);
-    int screenDataH = (int)lua_tonumber(L, -1);
+    lua_getglobal(L, "name"); //get name
+    lua_getglobal(L, "entity_conf"); //get entity setup script
+    int screenDataW = (int)lua_tonumber(L, -4);
+    int screenDataH = (int)lua_tonumber(L, -3);
+    const char* entity_setup = lua_tostring(L, -1);
+    const char* name = lua_tostring(L, -2);
     std::cout << "Screen data: " << screenDataW << ", " << screenDataH << "\n";
+    std::cout << "Name: " << name << "\n";
+    std::string entity_conf (entity_setup);
+    std::cout << "entity map name: " << entity_conf << "\n";
+
+    SDL_Delay(1000);
 
 
     
@@ -268,11 +277,11 @@ int main( int argc, char* argv[] )
             return false;
             }
    
-    std::string mapFile ("a.map");
+    std::string mapFile (entity_conf);
     std::cout << "Initialising map!\n\n";
     
     map* ptrmap; //create a pointer of type map.
-    map currentMap (screenDataW, screenDataH, mapFile);
+    map currentMap (screenDataW, screenDataH, entity_conf);
     ptrmap = &currentMap; //make pointer point to instance of map.
     std::cout << "checking for inputted commands....";
 
