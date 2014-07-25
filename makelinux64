@@ -1,12 +1,12 @@
 #Includes directory
 IDIR = -Isrc/includes -Isrc/main/header -Isrc/init/header -Isrc/command/header -Isrc/object/header -Isrc/map/header -Isrc/entity/header -Isrc/gamestate/header -Isrc/timer/header/ -Isrc/entities/GRID/ -Isrc/entities/SQUARE/ -Isrc/entities/PLAYER -Isrc/entities/DEFAULT -Isrc/entities/STAR -Isrc/glew/
-#compiler
+#compile
 CC = g++
 LD= ld
 #compiler flags
-CFLAGS = $(IDIR) -Wall -pipe -m64 -g
+CFLAGS = $(IDIR)  -pipe -m64 -g
 #linker flags
-LFLAGS = -lboost_system -lGL -lSDL2main -lSDL2 -lboost_thread -lGLEW -lGLU  -static-libgcc -static-libstdc++
+LFLAGS = -lboost_system -lGL -lSDL2main -lSDL2 -lboost_thread -lGLEW -lGLU -llua  -static-libgcc -static-libstdc++ 
 #dependancys
 #DEPS = 
 #objs directory

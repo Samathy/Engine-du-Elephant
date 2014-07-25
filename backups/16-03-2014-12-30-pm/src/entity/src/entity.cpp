@@ -79,6 +79,7 @@ void base_entity::render(SDL_Window* window) //by default this renders a red cub
 //            glVertex2f (1.0f, 0.0f);
 //            
 //            glVertex2f (0.5f, 1.0f);
+//
 //            glVertex2f (0.5f, -1.0f);
 //            glVertex2f (-0.5f, 1.0f);
 //            glVertex2f (-0.5f, -1.0f);

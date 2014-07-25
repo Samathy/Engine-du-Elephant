@@ -1,8 +1,4 @@
-src/map/src/map.cpp: In member function ‘void map::destroy_map()’:
-src/map/src/map.cpp:44:37: warning: deleting object of polymorphic class type ‘base_entity’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
-                 delete entityStack[i]; //delete entities entities.
-                                     ^
-src/entities/STAR/STAR_entity.cpp: In member function ‘virtual void STAR::render()’:
-src/entities/STAR/STAR_entity.cpp:41:13: warning: unused variable ‘pointTR’ [-Wunused-variable]
-     GLfloat pointTR[2] = {(this->locationX + 0.1f), (this->locationY)};
-             ^
+src/main/src/main.cpp: In function ‘int main(int, char**)’:
+src/main/src/main.cpp:219:27: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+     char* settings_file = "conf.lua";
+                           ^

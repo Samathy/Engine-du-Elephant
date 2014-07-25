@@ -1,5 +1,8 @@
 #Includes directory
-IDIR = -Isrc/includes -Isrc/main/header -Isrc/init/header -Isrc/command/header -Isrc/object/header -Isrc/map/header -Isrc/entity/header -Isrc/gamestate/header
+IDIR = -Isrc/includes -Isrc/main/header -Isrc/init/header -Isrc/command/header -Isrc/object/header -Isrc/map/header -Isrc/entity/header -Isrc/gamestate/header -Isrc/entities/SQUARE/  -Isrc/entities/GRID/  -Isrc/entities/STAR/ -Isrc/entities/PLAYER/ -Isrc/entities/DEFAULT/ -Isrc/timer/header/
+
+ 
+
 #compiler
 CC = g++
 LD = ld
