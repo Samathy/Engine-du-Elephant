@@ -1,6 +1,15 @@
 Engine-du-Elephant
 ==================
 
+THIS PROJECT IS NO LONGER BEING MAINTAINED
+After some evaluation of the goals of this little project, I have come to the conclusion that in order to impliment all the changes I want I would have to re-write most of the code.
+It doesnt really make sense to re-write something in order to add features when it would be much easier to simply start again. 
+Especially since I have learnt a fair bit more about how to go about designing and implimenting a larger project, and wont have to rush the project like this origional was.
+As such, in the near future (Or so i tell myself) I will be starting a new Game engine, hopefully one which works in a similar way, but has Lua support built in and supports OpenGL 3.0+ and is written in a much cleaner way.
+
+The code remaining in this repo is may not even compile, let alone work. Do not use it as an example of good programming, or game engine design.
+
+
 A simple game engine project that i made for college and uploaded here with the intention of improving it.
 
 This code is:
