@@ -1,0 +1,12 @@
+Project file structure:
+
+builders - Contains make files etc
+documentation - contains documentation (Like this)
+externalData - contains files used by the program, setup and other stuff.
+src - program source code.
+    'class/function name' - source of that class/function.
+        header - include assotiated with that class/function.
+        src - source for that class.
+    include - include files used by everything (libary headers, OS specific includes etc)
+
+

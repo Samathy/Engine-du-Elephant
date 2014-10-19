@@ -1,0 +1,34 @@
+************************
+File structure of the map files.
+******************************
+
+Name = NAME
+%entities% //indicate that the entities are starting.
+[entity Declaration]
+    <first argument> = data
+    <second argument> = data
+    <third argument> = data
+[end declaration]
+
+
+
+
+
+e.g
+
+
+Name=Map_One
+
+%entities%
+
+[square]
+    <co-ords> = 1
+    <co-ords> = 2
+    &255,255,255,0&
+    *1*
+[end]
+
+[star]
+    <X> = 5
+    <Y> = 6
+[end]

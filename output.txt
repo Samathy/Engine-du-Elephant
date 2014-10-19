@@ -1,4 +1,2 @@
 src/main/src/main.cpp: In function ‘int main(int, char**)’:
 src/main/src/main.cpp:219:27: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
-     char* settings_file = "conf.lua";
-                           ^

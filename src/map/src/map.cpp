@@ -26,6 +26,20 @@ map.cpp contains stuff for the map class.
 //        int currentEntities; //int storing the amount of initialised entities. (includes entities that re invisible etc)
 //};
 
+char* get_entity_script_path(lua_state* L, const char* key, int table_size)
+{
+    const char* result;
+    lua_pushstring(L, key);
+    lua_gettable(L, -2);
+    if (!lua_isnumber(L,-1))
+        {
+            std::cout << "Error, Item isnt valid table.";
+        }
+     result = lua_tostring(L, -1);
+     lua_pop(L, 1);
+
+    return result;
+}
 
 int map::return_number_of_entities() //returns the current amount of instantiated entities.
 {
@@ -51,260 +65,32 @@ return;
 void map::entity_init(int i)
 {
 
-    this->mem_amount =  (sizeof(PLAYER) * no_entities); //make the memory amount equal to object size times number of objects
-   //char entities  = new char[(sizeof(PLAYER)*no_entities)]; //allocate memory for entities.
-
-    std::cout << "Memory useage: " << mem_amount << "\n\n";
-    std::cout << "Number of entities: " << no_entities << "\n\n";
-    //unsigned int strPos; 
-    std::string cmpEndDec("%");
-    std::string cmpEndSet("#");
-    std::string objectName;
-    GLfloat Xf;
-    GLfloat Yf;
-
-    GLfloat colourR = 0; //colours.
-    GLfloat colourG = 0;
-    GLfloat colourB = 0;
-    GLfloat colourA = 0;
-//    
-//    if (i >= 400)
-//    {
-//      Ma  std::cout <<"i = > 400 >.< \n I= " << i <<" \n";
-//        std::terminate();
-//    }
-    
-    std::cout <<  "lines = " << lines[i] << " \n\n";
-    std::cout << "i = "<< i <<" on line 42 of map.cpp\n\n";
-    
-
-    std::size_t strPos = map::lines[i].find('#'); //try and find a # to show end of file.
-    std::cout << "strPos == " << strPos << " \n\n";
-    std::cout << "npos == " << std::string::npos << "\n\n";
-    
-    if (strPos != std::string::npos || strPos == 0 || strPos < 0)
-    {
-        std::cout << "Found end of file.\n\n";
-        return;
-    }
-    else if (strPos == std::string::npos) 
-	{
-		std::cout << "didnt find end of file this time!\n"; 
-	}
-    
-    
-        //i=i+1;
-    //std::cout << "At line 42, map::lines["<<i<<"]" << "\n\n";
-    
-    //std::cout <<  "at line 44, i = " << i << "\n\n";
-    
-    objectName = map::lines[i]; //assign objectName the next line in the map file.
-    i= i+1;
-    //std::cout << "objectName = " << objectName << "\n\n";
-    //std::cout << "i = " << i << "\n\n";
-    Xf = atof(map::lines[i].c_str()); //get the GL coords of the entity
-    i = i+1;
-    Yf = atof(map::lines[i].c_str());
-    i = i+1;
-    //std::cout << "i = " << i << "\n\n\n";
-
-    std::cout << "Initialising entity with the following params:" << " at X= " << Xf << " Y= " << Yf <<"\n"; //initialise enities.
-    
-    std::cout << "Current entity number " << map::currentEntities << "\n\n";
-    int entitys = map::currentEntities;
-//    if (objectName.compare("BASE") == 0)
-//    {
-//        colourR = 255; //colour full red.
-//        colourA = 1.0f; //no transparancy.
-//        //map::entityStack[entitys] = new base_entity (Xf, Yf, colourR, colourG, colourB, colourA); //initialise a new entity on the entity stack at element
-//    }
-    if (objectName.compare("SQUAREWHITE") == 0)
-    {
-            std::cout << "Creating a new square\n\n";
-            colourR = 1.0f;
-            colourG = 1.0f;
-            colourB = 1.0f;
-            colourA = 1.0f;
-            map::entityStack[entitys] = new SQUARE (Xf, Yf, colourR, colourG, colourB, colourA); //create new SQUARE entity.
-    }
-    else if (objectName.compare("SQUAREBLUE") == 0)
-    {
-            std::cout << "Creating a new square\n\n";
-            colourR = 0.0f;
-            colourG = 0.0f;
-            colourB = 1.0f;
-            colourA = 1.0f;
-            map::entityStack[entitys] = new SQUARE (Xf, Yf, colourR, colourG, colourB, colourA); //create SQUARE entity with differant colour values.
-    }
-    else if (objectName.compare("GRID") ==0)
-    {
-        std::cout << "creating new grid\n\n";
-        map::entityStack[entitys] = new GRID (Xf, Yf, 0.0, 0.0, 0.0, 0.0);  //create GRID entity
-            
-    }
-    else if (objectName.compare("PLAYER") == 0)
-    {
-        map::entityStack[entitys] = new PLAYER (Xf, Yf, 0.0f, 0.0f, 0.0f, 0.0f); //create PLAYER entity.
-    
-    }
-    else if (objectName.compare("STAR") == 0)
-    {
-        map::entityStack[entitys] = new STAR (Xf, Yf, 0.0f, 0.0f, 0.0f, 1.0f);
-    }
-    else 
-    {
-        std::cout << "unknown object type, creating a base entity." ; //if an unknown entity specified then create a base entity.
-        map::entityStack[entitys] = new DEFAULT (Xf, Yf, 0.0, 0.0, 0.0, 0.0);
-    }
-    
-    std::cout << "Object created\n\n";
-    
-    
-    map::currentEntities = map::currentEntities + 1; //increment the amount of entities
-    
-    
-    std::cout << "Current entities incremented. \nNow current entity count is: " << map::currentEntities << "\n\n";
-    
-
-    strPos = map::lines[i].find("%"); //try and find % to show end of params
-    if (strPos != std::string::npos)
-    {
-        i = i+1;
-        std::cout << "Returning and reading next area\n\n";
-        //return;
-        map::entity_init(i);
-    }
-    
-        strPos = map::lines[i].find("#"); //try and find a # to show end of file.
-    if (strPos == std::string::npos || strPos == 0 || strPos < 0)
-    {
-	    std::cout << "Found end of file at last\n";
-	std::cout << "Found end of file.\n\n";
-        return;
-    }
-    
-    if (strPos >= std::string::npos)
-    {
-    std::cout << "Map file missing closing % on line " << i << " \nIgnoring that for now, but that might change in the future.\n\n";
-    i = i+1;
-    std::cout << "returning and reading next area\n\n";
-    map::entity_init(i);
-    }
-    
-   /* if (i >= 25) //if looped more than 25 times there probable an error, so return.
-    {
-        std::cout <<"i = > 20 >.< \n I= " << i <<" \n";
-        return;
-    }
-   */
     
     return;
 
 }
 
 
-bool map::read_map_file (int width, int height, std::string filename)
+bool map::read_map_file (int width, int height, std::string filename, lua_State* L )
 {
-    unsigned strPos; //temp for the result of tring operations like .find().
-    int i = 0;
 
-    std::ifstream map_file (filename.c_str());// open file.
-
-    
-
-        if (!map_file)
-        {
-        // Check the stream is in a good state,
-        // which here pretty much just means open
-        std::cout<< "Cant open map file. Common cause is not having admin privilages.\n";
-        return false;
-        }
-
-        std::cout << "Opening map file....\n\n";
-        std::cout << "Map file contents: \n";
-
-        std::string line;
-        
-        while (std::getline(map_file, line, '\n'))
-        // read and immediately check it worked.
-        {
-            //std::cout << line << '\n';
-            map::lines[i] = line;
-            std::cout << "lines["<<i<<"] = " << map::lines[i] << "\n";
-            i= i+1;
-        }
-        
-    if (map::lines[0].empty() == true) //if the string is empty then either the map file is corrupt or something went wrong.
-    {
-        std::cout << "Empty\n";
-        return false;
-    }
-
-
-
-
-    std::string cmp ("Name"); //var with comparason strings in.
-
-    this->no_entities = atoi(map::lines[0].c_str()); //make the number of entities = whatever is at the start of the file.
-
-
-    std::size_t found = map::lines[1].find(cmp);
-    
-    if (found != std::string::npos)
-    {
-        cmp.assign ("=");
-        strPos = map::lines[1].find(cmp); // find the last instance of = in the string.
-        std::string tmp = map::lines[1].substr(5); //create a new string starting at = to end of string.
-        std::cout << "\n" << tmp << " <--Tempory string\n";
-        //tmp.erase (0,1); //erase the = symbol
-        
-        map::mapName.assign(tmp);
-
-        std::cout << "\n\nEventual map name = " << mapName << "\n";
-    }
-    std::cout <<"\n Now to read the next declaration\n\n";
-    //std::cout << lines[2];
-
-
-
-
-    if (map::lines[1].empty() == true) //check if the line[1] is empty.
-    {
-        std::cout << "Empty\n";
-        return 0; //return if its empty
-    }
-
-    cmp.assign ("%");
-    strPos = map::lines[1].find(cmp);
-    
-    if (strPos != std::string::npos)
-    {
-        std::cout << "Found entity declarations start\n\n";
-        std::cout << map::lines[2]<< "\n";
-        map::entity_init(3); //go to init entities.
-		std::cout << "Returned from init entities\n\n";
-        return true;
-    }
-    else
-    {
-    return false;
-    }
-
-    std::cout << map::lines[1];
+    luaL_loadfile(L, filename) || lua_pcall(L, 0,0,0);
+    lua_getglobal(L, "name"); //get the map name
+    const char* mapname = lua_tostring(L, -1);
+    int table_size = lua_getglobal(L, "tbl_size");
+    lua_getglobal(L, "entitiesT"); //get the table containing entity scripts.
+    get_entity_path(L,"key", lua_tostring(L, -2)); 
+}    
 
 return true;
 
 }
 
-map::map (int width, int height, std::string fileName)
+map::map (int width, int height, std::string fileName , lua_State* L)
 {
 	std::cout << "started map reading object\n\n";
-//        for (int i=0; i<200; i++) //for loop 16 times.
-//        {            
-//                    map::entityStack[i] = NULL ; //and make sure that the entity map's pointers are all null.
-//        }
     map::currentEntities = 0;
-    map::read_map_file(width, height, fileName);
+    map::read_map_file(width, height, fileName, L);
 	std::cout << "Map initialised\n";
     return;
 }

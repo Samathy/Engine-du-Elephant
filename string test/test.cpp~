@@ -1,0 +1,144 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+
+
+int main( int argc, char* argv[])
+{
+    int i =  0; //count integer
+    std::string line; //temp string for the lines read from the text file.
+    std::string lines[144];
+    std::string mapName;
+
+    std::ifstream map_file ("file.txt"); // open file.
+
+
+
+        if (!map_file)
+        {
+        // Check the stream is in a good state,
+        // which here pretty much just means open
+        std::cout<< "Cant open map file. Common cause is not having admin privilages.\n";
+        return false;
+        }
+
+        std::cout << "Opening map file....\n";
+
+        while (std::getline(map_file, line))
+        // read and immediately check it worked.
+        {
+            std::cout << line << '\n';
+            lines[i] = line;
+            std::cout << "lines[0] = " << lines[0] << " lines[1] = " << lines[1];
+            i= i+1;
+        }
+        
+    if (lines[0].empty() == true) //if the string is empty then either the map file is corrupt or something went wrong.
+    {
+        std::cout << "Empty";
+        return false;
+    }
+
+
+    
+
+    std::string cmp ("Name"); //var with comparason strings in.
+
+    std::size_t found = lines[0].find(cmp);
+    
+    if (found != std::string::npos)
+    {
+        cmp.assign ("=");
+        unsigned strPos = lines[0].rfind(cmp); // find the last instance of = in the string.
+        std::string tmp = lines[0].substr(5); //create a new string starting at = to end of string.
+        std::cout << "\n" << tmp << " <--Tempory string";
+        //tmp.erase (0,1); //erase the = symbol
+        
+        mapName.assign(tmp);
+
+        std::cout << "\n\nEventual map name = " << mapName << "\n";
+    }
+    std::cout <<"\n Now to read the next declaration\n";
+
+
+    if (lines[1].empty() == true) //check if the line[1] is empty.
+    {
+        std::cout << "Empty";
+        return false; //return if its empty
+    }
+
+    cmp.assign ("%")
+    strPos = line[1].find(cmp);
+    if (strPos != std::string::npos)
+    {
+        std::cout << "Found entity declarations start";
+        init_entities(2); //go to init entities.
+    }
+    else
+    {
+    return 0;
+    }
+
+
+return true;
+
+}
+
+entity_init(int i)
+{
+     std:string objectName;
+     int X;
+     int Y;
+    unsigned strPos2 = line[i].find("["); //find an instance of [ in the string (means the name of an entity is comming up)
+
+    if (strPos !=std::sting::npos) //if found match
+    {
+        line[i].erase (strPos, 1) // remove the [ symbol.
+        strPos = line[i].rfind("]"); //find a ]
+        if (strPos != std::string::npos)
+        {
+            line[i].erase (strPos, 1); //remove the ].
+        }
+        objectName.assign(line[i]); //assign the object name that we got, to a string 
+        
+        //.by now we should be left with just a string describing what oobject to instantiate.
+        
+    }
+    
+    else if (strPos === std::string::npos) //if we didnt find a occurance of [ then move on to the next line.
+    {
+       entity_init(i+1); //call entity_init again but increasing the line count to move the 
+    }
+    
+    strPos = line[i+1].find ("<"); //check for the < symbol
+    if ( strPos === std::string::npos)
+    {
+        line[i].erase (strPos, 1) // remove the < symbol.
+        strPos = line[i].rfind(">"); //find a >
+        if (strPos != std::string::npos)
+        {
+            line[i].erase (strPos, 1); //remove the <.
+        }
+        int X.assign(atoi(line[i].c_str())); //assign the object name that we got, to a string 
+    }
+    
+    strPos = line[i+1].find ("<"); //check for the < symbol
+    if ( strPos === std::string::npos)
+    {
+        line[i].erase (strPos, 1) // remove the < symbol.
+        strPos = line[i].rfind(">"); //find a >
+        
+        if (strPos != std::string::npos)
+        {
+            line[i].erase (strPos, 1); //remove the <.
+        }
+        int Y.assign(atoi(line[i].c_str())); //assign the object name that we got, to a string 
+    }
+        
+        
+        
+        take the next two lines, turn them into integers, pass them to the entity constructer.
+        then check if the next line is [end] if it is then re-run init_entity increasing i by 4 and 
+    entityMap
+
+}

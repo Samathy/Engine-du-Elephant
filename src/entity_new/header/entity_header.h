@@ -5,7 +5,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "SDLheaders.h"
 #include "all_header.h"
 
 class map
@@ -18,19 +17,24 @@ class entity
     boost::mutex colourmtx;
 
     public:
-        virtual void do_logic();
-        virtual void render();
-        virtual void handle_collision(int, int);
-        virtual void handle_keys(int, map*);
-        virtual void return_solid();
-        virtual GLfloat reutnr_locationX();
+        entity::entity(const char*); //constructor, takes file name of the init script for the entity.
+        virtual void do_logic(); //logic function
+        virtual void render(); //render function
+        virtual void handle_collision(int, int); //collision handlers
+        virtual void handle_keys(int, map*); //keyboard input handler.
+        virtual void return_solid(); //return solid.
+        virtual GLfloat return_locationX(); //return locations.
         virtual GLfloat return_locationY();
 
     private:
-        bool solid;
-        GLfloat colour4f[4];
+        void* stackBP; //pointer to a malloced "stack" for data relating to the entity (Base pointer)
+        void* stackSP; //Stack pointer for malloced stack. points to the top of the stack
+
+        lua_State* L; //pointer to Lua state
+        bool solid; //solid state of the entity.
+        GLfloat colour4f[4]; //colour data
         GLfloat colour[3];
-        GLfloat locationX;
+        GLfloat locationX; //location data
         GLfloat locationY;
 };
 

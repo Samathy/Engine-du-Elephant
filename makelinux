@@ -1,0 +1,20 @@
+#Includes directory
+IDIR = -Isrc/includes -Isrc/main/header -Isrc/init/header -Isrc/command/header -Isrc/object/header -Isrc/map/header -Isrc/entity/header
+#compiler
+CC = g++
+#compiler flags
+CFLAGS = $(IDIR) -Wall -pipe -m32
+#linker flags
+LFLAGS = -m32 -lboost_system -lSDL2main -lSDL2 -lboost_thread -static-libgcc -static-libstdc++
+#dependancys
+#DEPS = 
+#objs directory
+ODIR = src/obj
+#src files to compile
+SRC = src/main/src/main.cpp src/init/src/init.cpp src/command/src/command.cpp src/object/src/object.cpp src/map/src/map.cpp
+#output name
+OBJ_NAME = bin/linux/game
+
+all: $(SRC)
+	$(CC) -o $(OBJ_NAME) $(SRC) $(CFLAGS) $(LFLAGS)
+

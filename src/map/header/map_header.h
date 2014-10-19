@@ -18,7 +18,7 @@ class map
     boost::mutex returnEntitiesmtx;
 
     public:
-        map(int, int, std::string); //constructer, load the map.
+        map(int, int, std::string, lua_State* ); //constructer, load the map.
 base_entity* entityStack[200]; //array of entity pointers.
         int return_number_of_entities(); //returns all the entities currently initialised.
         void destroy_map();
